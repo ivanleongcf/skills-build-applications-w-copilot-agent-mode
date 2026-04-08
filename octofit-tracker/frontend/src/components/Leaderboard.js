@@ -6,15 +6,9 @@ const Leaderboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getBaseURL = () => {
-      if (process.env.REACT_APP_CODESPACE_NAME) {
-        return `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev`;
-      }
-      return 'http://localhost:8000';
-    };
-
-    const baseURL = getBaseURL();
-    const apiURL = `${baseURL}/api/leaderboard/`;
+    const apiURL = process.env.REACT_APP_CODESPACE_NAME
+      ? `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+      : 'http://localhost:8000/api/leaderboard/';
 
     console.log('Fetching leaderboard from:', apiURL);
 
