@@ -26,11 +26,20 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
     serializer_class = LeaderboardSerializer
 
 @api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'teams': reverse('team-list', request=request, format=format),
-        'activities': reverse('activity-list', request=request, format=format),
-        'workouts': reverse('workout-list', request=request, format=format),
-        'leaderboard': reverse('leaderboard-list', request=request, format=format),
-    })
+def api_root(request, format=None, base_url=None):
+    if base_url:
+        return Response({
+            'users': base_url + 'users/',
+            'teams': base_url + 'teams/',
+            'activities': base_url + 'activities/',
+            'workouts': base_url + 'workouts/',
+            'leaderboard': base_url + 'leaderboard/',
+        })
+    else:
+        return Response({
+            'users': reverse('user-list', request=request, format=format),
+            'teams': reverse('team-list', request=request, format=format),
+            'activities': reverse('activity-list', request=request, format=format),
+            'workouts': reverse('workout-list', request=request, format=format),
+            'leaderboard': reverse('leaderboard-list', request=request, format=format),
+        })
